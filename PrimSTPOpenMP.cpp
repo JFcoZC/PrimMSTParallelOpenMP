@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include <omp.h>
 
 int NUMTHREADS = 5;
@@ -185,6 +186,7 @@ void paralelPrimMST()
 	int weights[VERTICES];
 	int numThreads;
 	int alreadyVisitedVertices[VERTICES]; //1=Visited 0 = NOT visited
+	int randomRoot;
 
 	//Initialize arrays; saying that any vertice has been visited
 	for(int i = 0; i < VERTICES; i++)
@@ -194,9 +196,11 @@ void paralelPrimMST()
 		
 	}//Fin for
 	
-	//Set Start vertex as vertex n° 0
-	weights[0] = 0;
-	vertexVisitedFrom[0] = -1; //Vertex 0 visited from 0 because it is the start VERTEX
+	//Set Start vertex as random
+	srand(time(NULL));	//Seed to generate random numbers
+	randomRoot = rand() % VERTICES;
+	weights[randomRoot] = 0;
+	vertexVisitedFrom[randomRoot] = -1; //Vertex 0 visited from 0 because it is the start VERTEX
 	
 	for(int j = 0; j < VERTICES-1; j++)
 	{
